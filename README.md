@@ -1,2 +1,4 @@
-# shitutils
-a collection of miscellaneous python utilities
+# Hello!
+
+this is a collection of miscellaneous python utilities i wrote in my free time
+
