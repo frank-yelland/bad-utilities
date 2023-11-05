@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""
+
+"""corrupter - corrupts files
 Copyright 2023 Frank Yelland
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,6 +26,7 @@ import os
 import random
 import argparse
 import errno
+import common
 
 
 def corrupt_file(number_of_corruptions: int, file_path: str, **kwargs) -> None:
@@ -70,7 +72,7 @@ def corrupt_file(number_of_corruptions: int, file_path: str, **kwargs) -> None:
             file_content = file.read()
     except OSError as err:
         if err.errno == errno.EACCES:
-            print(f"[ERROR]: {file_path}: access denied")
+            common.print_error(f"{file_path}: access denied")
         elif err.errno == errno.EISDIR:
             print(f"[ERROR]: {file_path} is a directory")
         elif err.errno == errno.ENOENT:
@@ -99,7 +101,8 @@ def corrupt_file(number_of_corruptions: int, file_path: str, **kwargs) -> None:
         content[index] = content[index] ^ (1 << random.randint(0, 7))
 
     if verbose:
-        print(f"done\nwriting {file_name}_corrupted{file_extension}...", end="")
+        print(f"done\nwriting {file_name}_corrupted{file_extension}...",
+              end="")
 
     # writing array to file
     file_content = bytes(content)
